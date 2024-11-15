@@ -1,9 +1,6 @@
 package com.example.scheduler_develop.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -16,10 +13,13 @@ public class Schedule extends BaseEntity{
     private String title;
     private String description;
 
-    private String writerName;
+    //사용자 : 일정 = 1:N
+    @ManyToOne
+    @JoinColumn(name = "user_id" )
+    private User user;
 
-    public Schedule(String writerName, String title, String description) {
-        this.writerName = writerName;
+    public Schedule(User user, String title, String description) {
+        this.user = user;
         this.title = title;
         this.description = description;
     }
